@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Empower Her</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Empower Her - Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)" autocomplete="off">
+                <div class="textbox">
+                    <input type="text" id="username" placeholder="Username" required autocomplete="off" oninput="validateUsername(this)">
+                </div>
+                <div class="textbox">
+                    <input type="text" id="phone" placeholder="Phone Number" required autocomplete="off" oninput="validatePhone(this)">
+                    <button type="button" id="sendOtpBtn">Send OTP</button>
+                </div>
+                <div class="textbox">
+                    <input type="text" id="otp" placeholder="Enter OTP" required disabled>
+                </div>
+
+                <!-- Register Button (Initially Disabled) -->
+                <input type="submit" id="loginBtn" value="Register" disabled>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let generatedOTP = "";
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Clear any saved user data on page load
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userPhone');
+        });
+
+        // Function to validate username (Only alphabets allowed)
+        function validateUsername(input) {
+            input.value = input.value.replace(/[^a-zA-Z\s]/g, '');  // Removes numbers & special characters
+        }
+
+        // Function to validate phone number (Only 10 digits allowed)
+        function validatePhone(input) {
+            input.value = input.value.replace(/\D/g, ''); // Removes non-numeric characters
+            if (input.value.length > 10) {
+                input.value = input.value.slice(0, 10); // Limits to 10 digits
+            }
+        }
+
+        // Function to generate random OTP
+        function generateOTP() {
+            return Math.floor(1000 + Math.random() * 9000).toString();
+        }
+
+        // OTP Sending Function
+        document.getElementById("sendOtpBtn").addEventListener("click", function () {
+            const phoneInput = document.getElementById('phone').value;
+
+            if (!phoneInput || phoneInput.length !== 10) {
+                alert("Please enter a valid 10-digit phone number.");
+                return;
+            }
+
+            generatedOTP = generateOTP(); // Generate OTP
+            alert(`Your OTP is: ${generatedOTP}`); // Simulated OTP (for testing)
+
+            // Enable OTP input field
+            document.getElementById('otp').removeAttribute('disabled');
+        });
+
+        // OTP Verification
+        document.getElementById('otp').addEventListener("input", function () {
+            const enteredOTP = document.getElementById('otp').value;
+            const loginBtn = document.getElementById('loginBtn');
+
+            if (enteredOTP === generatedOTP) {
+                alert("OTP Verified Successfully!");
+                loginBtn.removeAttribute("disabled");  // Enable Register Button
+            } else {
+                loginBtn.setAttribute("disabled", "true");  // Keep it disabled
+            }
+        });
+
+        // Handle Login and Redirect to main.html
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const phone = document.getElementById('phone').value;
+            const otpInput = document.getElementById('otp').value;
+
+            if (!username || phone.length !== 10 || otpInput !== generatedOTP) {
+                alert("Please complete OTP verification first!");
+                return;
+            }
+
+            // Store Data in localStorage
+            localStorage.setItem('userName', username);
+            localStorage.setItem('userPhone', phone);
+
+            // Redirect to main.html
+            window.location.href = "main.html";
+        }
+    </script>
+</body>  
+</html>
