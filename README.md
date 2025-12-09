@@ -70,7 +70,7 @@ No frameworks, no backend, no database.
 
 1. Download or clone the repository
 
-git clone https://github.com/your-username/safigo.git
+git clone https://github.com/Shobana-Viswanathan/Safigo_
 
 
 2. Open index.html in any browser.
@@ -93,3 +93,10 @@ Actual SOS trigger + automated messaging
 Proper location tracking backend (instead of pure frontend)
 
 UI/UX clean-up and consistency
+
+![image alt](https://github.com/Shobana-Viswanathan/Safigo_/blob/main/Login%20page.jpeg)
+![image alt](https://github.com/Shobana-Viswanathan/Safigo_/blob/main/Home%20page%20-1.jpeg)
+![image alt](https://github.com/Shobana-Viswanathan/Safigo_/blob/main/Home%20page-2.jpeg)
+![image alt](https://github.com/Shobana-Viswanathan/Safigo_/blob/main/Feature%20page.jpeg)
+
+
